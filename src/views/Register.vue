@@ -11,6 +11,11 @@
               </router-link>
             </p>
 
+            <mcv-validation-errors
+              v-if="validationErrors"
+              :validation-errors="validationErrors"
+            />
+
             <form
               @submit.prevent="onSubmit"
               class="ng-pristine ng-valid ng-valid-email"
@@ -58,14 +63,22 @@
 </template>
 
 <script>
+import McvValidationErrors from '@/components/ValidationErrors'
+
 export default {
   name: 'McvRegister',
+  components: {
+    McvValidationErrors,
+  },
   data() {
     return { username: '', email: '', password: '' }
   },
   computed: {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting
+    },
+    validationErrors() {
+      return this.$store.state.auth.validationErrors
     },
   },
   methods: {
