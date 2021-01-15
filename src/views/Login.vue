@@ -11,13 +11,22 @@
               >
             </p>
 
-            <form class="ng-pristine ng-valid ng-valid-email">
+            <mcv-validation-errors
+              v-if="validationErrors"
+              :validationErrors="validationErrors"
+            />
+
+            <form
+              class="ng-pristine ng-valid ng-valid-email"
+              @submit.prevent="onSubmit"
+            >
               <fieldset>
                 <fieldset class="form-group">
                   <input
                     class="form-control form-control-lg ng-pristine ng-untouched ng-valid ng-empty ng-valid-email"
                     type="email"
                     placeholder="Email"
+                    v-model="email"
                   />
                 </fieldset>
 
@@ -26,12 +35,14 @@
                     class="form-control form-control-lg ng-pristine ng-untouched ng-valid ng-empty"
                     type="password"
                     placeholder="Password"
+                    v-model="password"
                   />
                 </fieldset>
 
                 <button
                   class="btn btn-lg btn-primary pull-xs-right ng-binding"
                   type="submit"
+                  :disabled="isSubmitting"
                 >
                   Sign in
                 </button>
@@ -45,7 +56,37 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import McvValidationErrors from '@/components/ValidationErrors'
+import { actionTypes } from '@/store/modules/auth'
+
 export default {
   name: 'McvLogin',
+  components: {
+    McvValidationErrors,
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
+  },
+  computed: {
+    ...mapState({
+      isSubmitting: state => state.auth.isSubmitting,
+      validationErrors: state => state.auth.validationErrors,
+    }),
+  },
+  methods: {
+    onSubmit() {
+      this.$store
+        .dispatch(actionTypes.login, {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => this.$router.push({ name: 'home' }))
+    },
+  },
 }
 </script>
