@@ -1,28 +1,25 @@
 <template>
   <div id="app">
+    <mcv-top-bar/>
     <router-view />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapState } from 'vuex'
 
-#nav {
-  padding: 30px;
-}
+import McvTopBar from '@/components/TopBar'
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+export default {
+  name: 'McvApp',
+  components: {
+    McvTopBar,
+  },
+  computed: {
+    ...mapState({
+      currentUser: state => state.auth.currentUser,
+      isLoggedIn: state => state.auth.isLoggedIn,
+    }),
+  },
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
