@@ -10,7 +10,7 @@
           <router-link
             class="nav-link"
             :to="{ name: 'home' }"
-            active-class="active"
+            exact-active-class="active"
             >Home</router-link
           >
         </li>
