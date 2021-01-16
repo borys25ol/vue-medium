@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <mcv-top-bar/>
+    <mcv-top-bar />
     <router-view />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
+import { actionTypes } from '@/store/modules/auth'
 import McvTopBar from '@/components/TopBar'
 
 export default {
@@ -15,11 +14,8 @@ export default {
   components: {
     McvTopBar,
   },
-  computed: {
-    ...mapState({
-      currentUser: state => state.auth.currentUser,
-      isLoggedIn: state => state.auth.isLoggedIn,
-    }),
+  mounted() {
+    this.$store.dispatch(actionTypes.getCurrentUser)
   },
 }
 </script>
