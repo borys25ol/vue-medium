@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <router-link class="navbar-brand ng-binding" :to="{ name: 'home' }"
+      <router-link class="navbar-brand ng-binding" :to="{ name: 'globalFeed' }"
         >MediumClone</router-link
       >
 
@@ -9,7 +9,7 @@
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :to="{ name: 'home' }"
+            :to="{ name: 'globalFeed' }"
             exact-active-class="active"
             >Home</router-link
           >
