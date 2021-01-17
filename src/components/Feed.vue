@@ -6,7 +6,7 @@
 
     <div v-if="feed">
       <div
-        class="article-previews"
+        class="article-preview"
         v-for="(article, index) in feed.articles"
         :key="index"
       >
@@ -46,7 +46,12 @@
           TAG LIST
         </router-link>
       </div>
-      PAGINATION
+      <mcv-pagination
+        :total="total"
+        :limit="limit"
+        :current-page="currentPage"
+        :url="url"
+      />
     </div>
   </div>
 </template>
@@ -55,6 +60,7 @@
 import { mapState } from 'vuex'
 
 import { actionTypes } from '@/store/modules/feed'
+import McvPagination from '@/components/Pagination'
 
 export default {
   name: 'McvFeed',
@@ -63,6 +69,17 @@ export default {
       type: String,
       require: true,
     },
+  },
+  components: {
+    McvPagination,
+  },
+  data() {
+    return {
+      total: 500,
+      limit: 10,
+      currentPage: 5,
+      url: '/tags/dragons',
+    }
   },
   computed: {
     ...mapState({
